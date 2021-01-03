@@ -42,7 +42,7 @@ def save_and_extract(response, pr_props) -> None:
     zipfile_handler.extractall(directory_path)
         
 t = date.today()
-t = t - timedelta(days=33)
-download_data(start_date=t, delta=30)
+t = t - timedelta(days=365)
+download_data(start_date=t, delta=365)
         
 
