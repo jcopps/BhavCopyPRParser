@@ -31,7 +31,17 @@ class PrProperties(object):
             return file_name
         file_name = ''.join([file_name, '.zip'])
         return file_name
- 
+
+    def get_anddmmyy_file_name(self) -> str:
+        file_name = self.get_file_name(directory=True)
+        file_name = file_name.replace('PR', 'an')
+        return ''.join([file_name, '.txt'])
+
+    def get_bcddmmyy_file_name(self) -> str:
+        file_name = self.get_file_name(directory=True)
+        file_name = file_name.replace('PR', 'bc')
+        return ''.join([file_name, '.csv'])
+
     def get_download_url(self) -> str:
         file_name = self.get_file_name()
         url = PR_URL.format(file_name)
