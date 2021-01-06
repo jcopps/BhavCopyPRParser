@@ -42,6 +42,11 @@ class PrProperties(object):
         file_name = file_name.replace('PR', 'bc')
         return ''.join([file_name, '.csv'])
 
+    def get_specific_file_name(self, prefix, extension) -> str:
+        file_name = self.get_file_name(directory=True)
+        file_name = file_name.replace('PR', prefix)
+        return ''.join([file_name, extension])
+
     def get_download_url(self) -> str:
         file_name = self.get_file_name()
         url = PR_URL.format(file_name)
