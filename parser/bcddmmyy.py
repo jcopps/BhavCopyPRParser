@@ -27,8 +27,12 @@ class bcDDMMYY(Company):
         super().__init__(company_name)
         self.file_path = file_path
         self.process()
-        print(file_path)
-        print(self.data.get(self.company_name, 'None'))
+        hit = self.data.get(self.company_name, None)
+        if hit:
+            print(file_path)
+            print(hit)
+
+
 
     def validation(self, record):
         if not record.get('symbol'):

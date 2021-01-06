@@ -6,10 +6,10 @@ from parser.company import Company
 from collection.download_helper import PrProperties
 from collection.constants import PR_DATA_DIR
 
-class AnDDMMYY(Company):
+class bmDDMMYY(Company):
     field_separator = ' : '
     company_name_separator = '    '
-    fields = ['company_name', 'announcement', 'summary']
+    fields = ['company_name', 'board_meeting_date', 'puurpose']
     def __init__(self, company_name, file_path):
         super().__init__(company_name)
         self.file_path = file_path
@@ -19,13 +19,12 @@ class AnDDMMYY(Company):
             print(file_path)
             print(hit)
 
-
     def validation(self, record):
         if not record.get('company_name'):
             return False
         if len(record) < 3:
             return False
-        company_names = record.get('company_name', '').split(AnDDMMYY.company_name_separator)
+        company_names = record.get('company_name', '').split(bmDDMMYY.company_name_separator)
         if len(company_names) < 2:
             return False
         return True
@@ -41,14 +40,14 @@ class AnDDMMYY(Company):
         with codecs.open(self.file_path, 'r', encoding='latin') as file_handler:
             lines = file_handler.readlines()
             for line in lines:
-                columns = [x.rstrip() for x in line.split(AnDDMMYY.field_separator)]
-                element = dict(zip(AnDDMMYY.fields, columns))
+                columns = [x.rstrip() for x in line.split(bmDDMMYY.field_separator)]
+                element = dict(zip(bmDDMMYY.fields, columns))
 
                 if not self.validation(element):
                     data_list = self.data.setdefault(prev_company, [])
                     data_list.append({'summary': line.rstrip()})
                     continue
-                symbol = element['company_name'].split(AnDDMMYY.company_name_separator)[1]
+                symbol = element['company_name'].split(bmDDMMYY.company_name_separator)[1]
                 data_list = self.data.setdefault(symbol, [])
                 data_list.append(element)
 
@@ -70,6 +69,7 @@ if __name__=='__main__':
             directory_name
         )
         if os.path.isdir(directory_path):
-            file_path = os.path.join(directory_path, pr_props.get_anddmmyy_file_name())
-            instance = AnDDMMYY('ITC', file_path)
+            file_path = os.path.join(directory_path, pr_props.get_specific_file_name(
+                prefix='Bm', extension='.txt'))
+            instance = bmDDMMYY('ITC', file_path)
 
