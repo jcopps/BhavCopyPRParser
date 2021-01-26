@@ -1,7 +1,0 @@
-COMPANY NAME    SYMBOL     : BM DATE    : BM PURPOSE 
-Larsen & Toubro Infotech Limited    LTI : 19-JAN-2021 : Financial Results To consider and approve the financial results for the period ended December 31, 2020
-Spandana Sphoorty Financial Limited    SPANDANA : 31-DEC-2020 : Fund Raising To consider Fund Raising
-Wipro Limited    WIPRO : 13-JAN-2021 : Financial Results/Dividend To consider and approve the financial results for the period ended December 31, 2020 and dividend.
-Cochin Shipyard Limited    COCHINSHIP : 04-JAN-2021 : Dividend To consider interim dividend for the financial year 2020-21
-
-
