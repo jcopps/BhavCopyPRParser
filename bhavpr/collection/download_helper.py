@@ -1,4 +1,4 @@
-from collection.constants import PR_URL
+from bhavpr.collection.constants import PR_URL
 
 class PrProperties(object):
     def __init__(self, day, month, year) -> None:
