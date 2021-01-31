@@ -1,5 +1,6 @@
 from bhavpr.collection.constants import PR_URL
 
+
 class PrProperties(object):
     def __init__(self, day, month, year) -> None:
         self.day = day
@@ -9,7 +10,7 @@ class PrProperties(object):
     @staticmethod
     def pad_zero(element, final_len=2):
         if element < 10:
-            element = str(element).rjust(final_len, '0')
+            element = str(element).rjust(final_len, "0")
         return element
 
     @staticmethod
@@ -20,7 +21,7 @@ class PrProperties(object):
         return year
 
     def get_file_name(self, directory=False) -> str:
-        file_name = 'PR{0}{1}{2}'
+        file_name = "PR{0}{1}{2}"
 
         day = PrProperties.pad_zero(self.day)
         month = PrProperties.pad_zero(self.month)
@@ -29,27 +30,25 @@ class PrProperties(object):
         file_name = file_name.format(day, month, year)
         if directory:
             return file_name
-        file_name = ''.join([file_name, '.zip'])
+        file_name = "".join([file_name, ".zip"])
         return file_name
 
     def get_anddmmyy_file_name(self) -> str:
         file_name = self.get_file_name(directory=True)
-        file_name = file_name.replace('PR', 'an')
-        return ''.join([file_name, '.txt'])
+        file_name = file_name.replace("PR", "an")
+        return "".join([file_name, ".txt"])
 
     def get_bcddmmyy_file_name(self) -> str:
         file_name = self.get_file_name(directory=True)
-        file_name = file_name.replace('PR', 'bc')
-        return ''.join([file_name, '.csv'])
+        file_name = file_name.replace("PR", "bc")
+        return "".join([file_name, ".csv"])
 
     def get_specific_file_name(self, prefix, extension) -> str:
         file_name = self.get_file_name(directory=True)
-        file_name = file_name.replace('PR', prefix)
-        return ''.join([file_name, extension])
+        file_name = file_name.replace("PR", prefix)
+        return "".join([file_name, extension])
 
     def get_download_url(self) -> str:
         file_name = self.get_file_name()
         url = PR_URL.format(file_name)
         return url
-
-
