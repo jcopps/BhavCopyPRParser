@@ -57,3 +57,21 @@ smeddmmyy.csv file contains market data of SME securities traded during the day.
 Ttddmmyy.csv file contains a list of top twenty five securities by traded value.
 
 
+class BhavPR:
+    Function: get_company(search_string)
+        Returns a list of company name, symbol pairs as a set that matches the search_string.
+
+    Function: collect(date_start, date_end)
+        Returns a bool implying the success of the collection. 
+        Collects the PR files available on the server for the provided date range. 
+            date_start: Format as 01-01-2020 DD-MM-YYYY
+            date_end: Format as 05-01-2020 DD-MM-YYYY
+    
+    Function: get_symbol(search_string, on_symbol=False)
+        Returns a list of matched company records.
+        on_symbol: Limit to symbol field
+
+    Function: set_company(company_name)
+        Returns a bool of the context set. 
+ 
+    

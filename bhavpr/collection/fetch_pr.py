@@ -56,6 +56,4 @@ def save_and_extract(response, pr_props) -> None:
     zipfile_handler.extractall(directory_path)
 
 
-from_str = "01-01-2020"
-to_str = "10-01-2020"
-download_data(from_str, to_str)
+# load_meta()
