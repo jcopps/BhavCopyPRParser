@@ -14,6 +14,6 @@ logging.basicConfig(
 )
 
 
-def get_logger(name):
+def get_logger(name="bhavpr"):
     logger = logging.getLogger(name)
     return logger

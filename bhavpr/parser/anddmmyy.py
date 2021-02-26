@@ -2,9 +2,9 @@ import codecs
 import os
 from datetime import timedelta, date
 
-from parser.company import Company
-from collection.download_helper import PrProperties
-from collection.constants import PR_DATA_DIR
+from bhavpr.parser.company import Company
+from bhavpr.collection.download_helper import PrProperties
+from bhavpr.collection.constants import PR_DATA_DIR
 
 
 class AnDDMMYY(Company):
@@ -16,10 +16,11 @@ class AnDDMMYY(Company):
         super().__init__(company_name)
         self.file_path = file_path
         self.process()
-        hit = self.data.get(self.company_name, None)
-        if hit:
-            print(file_path)
-            print(hit)
+        if self.company_name:
+            hit = self.data.get(self.company_name, None)
+            if hit:
+                print(file_path)
+                print(hit)
 
     def validation(self, record):
         if not record.get("company_name"):
@@ -51,18 +52,20 @@ class AnDDMMYY(Company):
                     data_list = self.data.setdefault(prev_company, [])
                     data_list.append({"summary": line.rstrip()})
                     continue
-                symbol = element["company_name"].split(AnDDMMYY.company_name_separator)[
-                    1
-                ]
-                data_list = self.data.setdefault(symbol, [])
+                company_name, symbol = element["company_name"].split(
+                    AnDDMMYY.company_name_separator
+                )
+                company_obj = Company(company_name=company_name, symbol=symbol)
+                data_list = self.data.setdefault(company_obj, [])
                 data_list.append(element)
 
-                prev_company = symbol
+                prev_company = company_obj
 
 
 if __name__ == "__main__":
     t = date.today()
     start_date = t - timedelta(days=365)
+
     for offset in range(0, 365):
         cur_date = start_date + timedelta(days=offset)
         pr_props = PrProperties(

@@ -1,4 +1,5 @@
-from bhavpr.collection.constants import PR_URL
+from bhavpr.collection.constants import PR_URL, PERIOD, PR_DIR_FORMAT
+from datetime import datetime
 
 
 class PrProperties(object):
@@ -19,6 +20,11 @@ class PrProperties(object):
         if len(year) > 2:
             year = year[-2:]
         return year
+
+    @staticmethod
+    def create_instance_from_directory(directory_name) -> object:
+        dir_date = datetime.strptime(directory_name, PR_DIR_FORMAT)
+        return PrProperties(dir_date.day, dir_date.month, dir_date.year)
 
     def get_file_name(self, directory=False) -> str:
         file_name = "PR{0}{1}{2}"
@@ -46,7 +52,7 @@ class PrProperties(object):
     def get_specific_file_name(self, prefix, extension) -> str:
         file_name = self.get_file_name(directory=True)
         file_name = file_name.replace("PR", prefix)
-        return "".join([file_name, extension])
+        return "".join([file_name, PERIOD, extension])
 
     def get_download_url(self) -> str:
         file_name = self.get_file_name()

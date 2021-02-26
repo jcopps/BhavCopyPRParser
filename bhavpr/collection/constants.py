@@ -11,3 +11,9 @@ Path(PR_DATA_DIR).mkdir(parents=True, exist_ok=True)
 Path(PR_LOG_DIR).mkdir(parents=True, exist_ok=True)
 
 DATE_FORMAT_STR = "%d-%m-%Y"
+PR_DIR_FORMAT = "PR%d%m%y"  # Two digits year
+PERIOD = "."
+DEFAULT_COMPANY_NAME = None
+ANNOUNCEMENT_PREFIX = "an"
+TEXT_EXT = "txt"
+CSV_EXT = "csv"
