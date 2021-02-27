@@ -6,6 +6,7 @@ PR_URL = "https://www1.nseindia.com/archives/equities/bhavcopy/pr/{0}"
 app_dirs = AppDirs("BhavPR", "jcopps", version="0.0.1")
 PR_DATA_DIR = app_dirs.user_data_dir
 PR_LOG_DIR = app_dirs.user_log_dir
+print("PR log directory: {}".format(PR_LOG_DIR))
 PR_LOG_FILE = os.path.join(PR_LOG_DIR, "bhav_pr.log")
 Path(PR_DATA_DIR).mkdir(parents=True, exist_ok=True)
 Path(PR_LOG_DIR).mkdir(parents=True, exist_ok=True)

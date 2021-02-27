@@ -1,6 +1,20 @@
-from bhavpr.collection.constants import PR_URL, PERIOD, PR_DIR_FORMAT
-from datetime import datetime
+from datetime import datetime, timedelta
 
+from bhavpr.collection.constants import (
+    PR_URL,
+    PERIOD,
+    PR_DIR_FORMAT,
+    DATE_FORMAT_STR
+)
+
+def date_range_iter(start_date, end_date):
+    for n in range(int((end_date - start_date).days)):
+        yield start_date + timedelta(n)
+
+def preprocess_date(input_date):
+    if isinstance(input_date, str):
+        input_date = datetime.strptime(input_date, DATE_FORMAT_STR)
+    return input_date
 
 class PrProperties(object):
     def __init__(self, day, month, year) -> None:

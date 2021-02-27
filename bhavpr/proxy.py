@@ -1,6 +1,6 @@
 from bhavpr.collection.logger_factory import get_logger
 from bhavpr.collection.fetch_pr import download_data
-from bhavpr.parser.pr_record import load_meta, company_name_search
+from bhavpr.parser.pr_record import parse_pr_files, load_meta, company_name_search
 
 
 class BhavPR(object):
@@ -21,12 +21,20 @@ class BhavPR(object):
         download_data(date_start, date_end)
         return True
 
-    def get_symbol(self, search_string, on_symbol=False) -> set:
-        return company_name_search(self.meta, search_string, on_symbol)
+    def get_symbol(self, search_string, only_name=False) -> set:
+        return company_name_search(self.meta, search_string, only_name)
 
     def set_company(self, company_name) -> bool:
-        record = self.get_symbol(company_name, on_symbol=True)
+        record = self.get_symbol(company_name, only_name=True)
         if len(record) != 1:
             return False
-        self.focus = record[0]
+        self.focus = record.pop()
         return True
+
+    def get_pr(self, date_start, date_end) -> dict:
+        """Returns a dictionary
+        Indexed on date.
+        Filtered by company if a symbol loaded.
+        """
+        return parse_pr_files(date_start, date_end, self.focus)
+        
