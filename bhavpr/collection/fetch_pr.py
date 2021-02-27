@@ -1,35 +1,30 @@
 import os
 import requests
 import zipfile
-from datetime import timedelta, date
-from datetime import datetime
 
-from bhavpr.collection.download_helper import PrProperties
+from bhavpr.collection.download_helper import (
+    PrProperties,
+    preprocess_date,
+    date_range_iter
+)
 from bhavpr.collection.logger_factory import get_logger
-from bhavpr.collection.constants import PR_DATA_DIR, DATE_FORMAT_STR
-
+from bhavpr.collection.constants import PR_DATA_DIR
 
 def download_data(date_start, date_end) -> None:
 
     logger = get_logger(__name__)
 
-    def _preprocess_date(input_date):
-        if isinstance(input_date, str):
-            input_date = datetime.strptime(input_date, DATE_FORMAT_STR)
-        return input_date
+    date_start = preprocess_date(date_start)
+    date_end = preprocess_date(date_end)
 
-    date_start = _preprocess_date(date_start)
-    date_end = _preprocess_date(date_end)
-
-    def _daterange(start_date, end_date):
-        for n in range(int((end_date - start_date).days)):
-            yield start_date + timedelta(n)
-
-    for cur_date in _daterange(date_start, date_end):
+    for cur_date in date_range_iter(date_start, date_end):
         pr_props = PrProperties(
             day=cur_date.day, month=cur_date.month, year=cur_date.year
         )
-
+        dir_path = os.path.join(PR_DATA_DIR, pr_props.get_file_name(directory=True))
+        if os.path.isdir(dir_path):
+            logger.info("Skipping to avoid repeat: {}".format(cur_date))
+            continue
         url = pr_props.get_download_url()
         logger.info("URL to download: {}".format(url))
         result = requests.get(url)
