@@ -76,3 +76,13 @@ class BhavPR:
         Returns a bool of the context set.
 ``` 
     
+## Build instructions
+
+```
+python setup.py sdist
+python3 setup.py bdist_wheel
+
+python3 -m pip install --user --upgrade twine
+python3 -m twine upload --repository testpypi dist/*
+
+```
