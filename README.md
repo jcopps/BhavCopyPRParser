@@ -80,11 +80,15 @@ class BhavPR:
 
 ```
 # Ensure the following is executed within a virtual environment. 
-
-python setup.py sdist
+python3 -m pip install --upgrade build
+python3 setup.py sdist
 python3 setup.py bdist_wheel
 
 python3 -m pip install --upgrade twine
 python3 -m twine upload --repository testpypi dist/*
+
+# Test installation
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps bhavpr-jcopps
+
 
 ```
