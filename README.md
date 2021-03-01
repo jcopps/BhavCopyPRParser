@@ -79,10 +79,12 @@ class BhavPR:
 ## Build instructions
 
 ```
+# Ensure the following is executed within a virtual environment. 
+
 python setup.py sdist
 python3 setup.py bdist_wheel
 
-python3 -m pip install --user --upgrade twine
+python3 -m pip install --upgrade twine
 python3 -m twine upload --repository testpypi dist/*
 
 ```
