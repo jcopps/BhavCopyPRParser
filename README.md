@@ -76,3 +76,29 @@ class BhavPR:
         Returns a bool of the context set.
 ``` 
     
+## Build instructions
+
+```
+Test environment
+# Ensure the following is executed within a virtual environment. 
+python3 -m pip install --upgrade build
+python3 setup.py sdist
+python3 setup.py bdist_wheel
+
+python3 -m pip install --upgrade twine
+python3 -m twine upload --repository testpypi dist/*
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps bhavpr-jcopps
+
+
+Real environment [ Caution ]
+# Ensure the following is executed within a virtual environment. 
+python3 -m pip install --upgrade build
+python3 setup.py sdist
+python3 setup.py bdist_wheel
+
+python3 -m pip install --upgrade twine
+python3 -m twine upload dist/*
+
+pip3 install bhavpr
+
+```
