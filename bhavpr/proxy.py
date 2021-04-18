@@ -19,6 +19,7 @@ class BhavPR(object):
             "collect(): Received inputs {}, {}".format(date_start, date_end)
         )
         download_data(date_start, date_end)
+        self.meta = load_meta(local=True)
         return True
 
     def get_symbol(self, search_string, only_name=False) -> set:
