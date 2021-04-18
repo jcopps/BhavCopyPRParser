@@ -10,7 +10,7 @@ from bhavpr.collection.constants import PR_DATA_DIR
 class AnDDMMYY(Company):
     field_separator = " : "
     company_name_separator = "    "
-    fields = ["company_name", "announcement", "summary"]
+    fields = ["company_name", "announcement"]
 
     def __init__(self, company_name, file_path):
         super().__init__(company_name)
@@ -25,7 +25,7 @@ class AnDDMMYY(Company):
     def validation(self, record):
         if not record.get("company_name"):
             return False
-        if len(record) < 3:
+        if len(record) < 2:
             return False
         company_names = record.get("company_name", "").split(
             AnDDMMYY.company_name_separator
@@ -50,7 +50,7 @@ class AnDDMMYY(Company):
 
                 if not self.validation(element):
                     data_list = self.data.setdefault(prev_company, [])
-                    data_list.append({"summary": line.rstrip()})
+                    data_list.append({"announcement": line.rstrip()})
                     continue
                 company_name, symbol = element["company_name"].split(
                     AnDDMMYY.company_name_separator
@@ -58,6 +58,8 @@ class AnDDMMYY(Company):
                 company_obj = Company(company_name=company_name, symbol=symbol)
                 data_list = self.data.setdefault(company_obj, [])
                 data_list.append(element)
+                for elt in columns[len(AnDDMMYY.fields)-1:]:
+                    data_list.append({"announcement": elt.rstrip()})
 
                 prev_company = company_obj
 
