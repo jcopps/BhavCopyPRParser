@@ -1,11 +1,4 @@
-from bhavpr import BhavPR
-
-    
-
-def test_instance_creation():
-    instance = BhavPR()
-    return instance
-
+from test_instance_creation import test_instance_creation
 
 instance = test_instance_creation()
 
